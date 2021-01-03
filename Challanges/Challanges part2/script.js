@@ -44,6 +44,7 @@ console.log(total);
 
 //              Challange #3
 
+/*
 const mark = {
     firstName: `Mark`,
     lastName: `Miller`,
@@ -75,3 +76,51 @@ if (mark.calcBMI() > john.calcBMI()) {
 } else {
     console.log(`${john.firstName}'s BMI (${john.bmi}) is higher than ${mark.firstName}'s (${mark.bmi})`);
 }
+*/
+
+//              Challange 4 LOOPS
+
+const bills = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
+const tips = [];
+const totals = [];
+
+const calcTip = function (bill) {
+    return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
+}
+
+for (let i = 0; i < bills.length; i++) {
+    const tip = calcTip(bills[i]);
+    tips.push(tip);
+    const total = bills[i] + tips[i];
+    totals.push(total);
+}
+
+console.log(`bills:`, bills);
+console.log(`tips:`, tips);
+console.log(`totals:`, totals);
+
+const calcAverage = function (arr) {
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+        // sum = sum + arr[i];
+        sum += arr[i];
+    }
+    return sum / arr.length;
+}
+
+console.log(calcAverage(bills));
+console.log(calcAverage(tips));
+console.log(calcAverage(totals));
+
+
+
+const kalk = function (numuri) {
+    let summa = 0;
+    for (let i = 0; i < numuri.length; i++) {
+        summa = summa + numuri[i];
+    } return summa;
+}
+
+const skaitli = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+console.log(kalk(skaitli));

@@ -112,6 +112,7 @@ console.log(neighbours);
 
 //              Introductions to Objects
 
+/*
 const myCountry = {
     country: `Latvia`,
     capital: `Riga`,
@@ -153,8 +154,76 @@ console.log(myCountry.describe());
 console.log(myCountry.checkIsland());
 
 console.log(myCountry.neighbours.length);
+*/
+
+//              LOOPS
+
+// for (let voter = 1; voter <= 50; voter++) {
+//     console.log(`Voter number ${voter} is currently voting`);
+// }
+
+//              LOOPS #2 Break & Continue
 
 
+/*
+const populations = [10, 1441, 332, 83];
+const percentages2 = [];
+
+for (let i = 0; i < populations.length; i++) {
+    percentages2.push(PercentageCalc(populations[i]));
+}
+console.log(percentages2);
 
 
+function PercentageCalc(countryPeople) {
+    return (countryPeople / 7900) * 100;
+}
+*/
+
+//              LOOPS #3 Backwards loops in loops
+
+/*
+const listOfNeighbours = [['Canada', 'Mexico'], ['Spain'], ['Norway', 'Sweden', 'Russia']];
+const neigh = [];
+const bours = [];
+
+for (let i = 0; i < listOfNeighbours.length; i++) {
+    const neigh = listOfNeighbours[i];
+    for (let k = 0; k < neigh.length; k++) {
+        const bours = neigh[k];
+        console.log(bours);
+    }
+
+}
+
+//  
+for (let i = 0; i < listOfNeighbours.length; i++)
+    for (let y = 0; y < listOfNeighbours[i].length; y++)
+        console.log(`Neighbour: ${listOfNeighbours[i][y]}`);
+*/
+
+//              WHILE LOOP
+
+const populations = [10, 1441, 332, 83];
+const percentages2 = [];
+
+function PercentageCalc(countryPeople) {
+    return (countryPeople / 7900) * 100;
+}
+
+const percentages3 = [];
+let i = 0;
+while (i < populations.length) {
+    const perc = PercentageCalc(populations[i]);
+    percentages3.push(perc);
+    i++;
+}
+console.log(percentages3);
+
+i = 0;
+while (i < populations.length) {
+    percentages2.push(PercentageCalc(populations[i]));
+    i++;
+}
+console.log(percentages2);
 
