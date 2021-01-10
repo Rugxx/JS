@@ -40,9 +40,32 @@ const game = {
     team2: 6.5,
   },
 };
+// Challange 2
 
-// console.log(game);
+// 1)
 
+for (const [i, player] of game.scored.entries())
+  console.log(`Goal ${i + 1}: ${player}`);
+
+// 2)
+
+let average = 0;
+const odds = Object.values(game.odds);
+
+for (const odd of odds) average += odd;
+console.log(average);
+average /= odds.length;
+console.log(average);
+
+// 3)
+
+for (const [team, odd] of Object.entries(game.odds)) {
+  const teamStr = team === `x` ? `draw` : `victory ${game[team]}`;
+  console.log(`Odd of ${teamStr} ${odd}`);
+}
+
+// CHALLANGE 1
+/*
 // 1
 
 const [players1, players2] = game.players;
@@ -89,3 +112,4 @@ printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich');
 
 team1 < team2 && console.log(`Team one is more likely to win`);
 team1 > team2 && console.log(`Team two is more likely to win`);
+*/
