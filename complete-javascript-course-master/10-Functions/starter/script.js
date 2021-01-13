@@ -120,7 +120,7 @@ const greeterHey2 = greet2(`Loxs`);
 greeterHey2(`Mikus`);
 */
 
-// /*
+/*
 //              Call and apply Methods
 
 const lufthansa = {
@@ -177,9 +177,9 @@ book.apply(swiss, flightData);
 
 book.call(swiss, ...flightData); //This much better
 console.log(swiss);
-// */
+*/
 
-// /*
+/*
 //              Bind Method
 
 // book.call(eurowings, 23, `Sarah Williams`);
@@ -230,3 +230,95 @@ const addVAT2 = addTaxRate(0.23);
 console.log(addVAT2(100));
 console.log(addVAT2(150));
 console.log(addVAT2(180));
+*/
+
+//        IIFE
+
+/*
+const runOnce = function () {
+  console.log(`This will never run again`);
+};
+// runOnce();
+
+// IIFE
+(function () {
+  console.log(`This will never run again`);
+  const isPrivare = 23;
+})();
+
+// console.log(isPrivare);
+
+(() => console.log(`Tadaa, never again`))();
+
+{
+  const isPrivate = 23;
+}
+// console.log(isPrivate);
+*/
+
+/*
+//        CLOSURES (remembers all variables of the functions BirthPlace (1st function))
+
+const secureBooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passenger count`);
+  };
+};
+
+const booker = secureBooking();
+
+booker();
+booker();
+booker();
+
+document.querySelector(`.poll`).addEventListener(`click`, booker);
+
+console.dir(booker);
+
+// [[CANT BE ACCESSED from outside]]
+*/
+
+//        CLOSURES MORE
+
+// Example a
+let f;
+
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+
+const h = function () {
+  const b = 777;
+  f = function () {
+    console.log(b * 2);
+  };
+};
+
+g();
+f();
+console.dir(f);
+
+h(); // reassigned f
+f();
+console.dir(f);
+
+// Example 2
+const boardPassengers = function (n, wait) {
+  // const perGroup = n / 3;
+
+  setTimeout(function () {
+    console.log(`We are now boarding all ${n} passengers`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers`);
+  }, wait * 1000);
+
+  console.log(`Will start boarding in ${wait} seconds`);
+};
+
+// const perGroup = 1000;
+boardPassengers(180, 3);

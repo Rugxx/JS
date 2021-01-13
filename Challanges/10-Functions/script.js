@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 const poll = {
   question: 'What is your favourite programming language?',
   options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
@@ -39,3 +40,24 @@ document
   .addEventListener(`click`, poll.registerNewAnswer.bind(poll));
 
 poll.displayResults.call({ answers: [5, 2, 3] }, `string`);
+*/
+
+// CHALLANGE 2
+
+(function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+
+  document.querySelector(`body`).addEventListener(`click`, function () {
+    header.style.color = `blue`;
+  });
+})();
+
+(function () {
+  const header2 = document.querySelector('h1');
+  header2.style.color = 'black';
+
+  document.querySelector(`body`).addEventListener(`click`, function () {
+    header2.style.color = `yellow`;
+  });
+})();
