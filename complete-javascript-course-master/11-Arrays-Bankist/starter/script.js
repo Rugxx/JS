@@ -72,7 +72,7 @@ const displayMovements = function (movements) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}</div>
+        <div class="movements__value">${mov}€</div>
       </div>`;
 
     containerMovements.insertAdjacentHTML(`afterbegin`, html); // Quick & dirty
@@ -81,13 +81,164 @@ const displayMovements = function (movements) {
 
 displayMovements(account1.movements);
 
+// Calculate Balance with reduce() + arrow functions
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance}€`;
+};
+calcDisplayBalance(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const out = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  const intereset = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter((int, i, arr) => {
+      console.log(arr);
+      return int >= 1;
+    })
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${intereset}€`;
+};
+calcDisplaySummary(account1.movements);
+
+// Mutate accounts array objects with forEach "sideeffect"
+const createUsername = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(` `)
+      .map(name => name[0])
+      .join(``);
+  });
+};
+
+createUsername(accounts);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
 
+//        CHAINING MAGIC
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const eurToUsd = 1.1;
+
+// as long as returns [ARRAY] stops at reduce
+const totalDepositsUsd = movements
+  .filter(mov => mov > 0)
+  // .map(mov => mov * eurToUsd)
+  .map((mov, i, arr) => {
+    // console.log(arr);
+    return mov * eurToUsd;
+  })
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(totalDepositsUsd);
+
+//        Map loops over and creates a new array
+/*
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const eurToUSD = 1.1;
+
+// const movementsUSD = movements.map(function (mov) {
+//   return mov * eurToUSD;
+// });
+const movementsUSD = movements.map(mov => mov * eurToUSD);
+
+console.log(movements);
+console.log(movementsUSD);
+
+const movementsUSDfor = [];
+for (const mov of movements) movementsUSDfor.push(mov * eurToUSD);
+console.log(movementsUSDfor);
+
+const movementsDescriptions = movements.map(
+  (mov, i) =>
+    `Movement ${i + 1}: You ${mov > 0 ? `deposited` : `withdrew`}: ${Math.abs(
+      mov
+    )}`
+);
+
+// {  if (mov > 0) {
+  //     return `Movement ${i + 1}: You deposited: ${mov}`;
+  //   } else {
+    //     return `Movement ${i + 1}: You withdrew: ${Math.abs(mov)}`;
+    //   }}
+    
+    console.log(movementsDescriptions);
+*/
+
+/*
+//        FILTERS
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+console.log(movements);
+
+const deposits = movements.filter(mov => mov > 0);
+console.log(deposits);
+
+const depositsFor = [];
+for (const mov of movements) if (mov > 0) depositsFor.push(mov);
+console.log(depositsFor);
+
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals);
+*/
+
+/*
+//        REDUCE
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+console.log(movements);
+
+// Accumulator is like a snowball "acc"
+const balance = movements.reduce(function (acc, cur, i, arr) {
+  console.log(`Iterration ${i}: ${acc} ${cur > 0 ? `+` : ``}${cur}`);
+  return acc + cur;
+}, 100); // by default 0
+
+// Arrow method
+// const balance = movements.reduce((acc, cur) => acc + cur, 0);
+
+console.log(balance);
+
+let balance2 = 0;
+for (const mov of movements) balance2 += mov;
+console.log(balance2);
+
+// max value
+
+const maxValue = movements.reduce(function (acc, cur) {
+  if (acc > cur) {
+    return (acc = acc);
+  } else {
+    return (acc = cur);
+  }
+});
+
+const maxValue2 = movements.reduce((acc, cur) => {
+  if (acc > cur) return acc;
+  else return cur;
+}, movements[0]);
+console.log(maxValue2);
+
+console.log(maxValue);
+*/
+
+// ///////////////////////////////////////////
 // const currencies = new Map([
 //   ['USD', 'United States dollar'],
-//   ['EUR', 'Euro'],
+// ['EUR', 'Euro'],
 //   ['GBP', 'Pound sterling'],
 // ]);
 
@@ -192,6 +343,8 @@ currenciesUnique.forEach(function (value, key, map) {
 });
 */
 
+/*
+//       CHALLANGE #1
 const julia = [3, 5, 2, 12, 7];
 const kate = [4, 1, 15, 8, 3];
 
@@ -225,3 +378,4 @@ const checkDogs = function (dogsJul, dogsKate) {
 };
 
 checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+*/
