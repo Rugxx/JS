@@ -61,10 +61,12 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = ``; //Mutates existing html values (removes if ``)
+  // Slice copies
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
 
-  movements.forEach(function (mov, i) {
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? `deposit` : `withdrawal`;
 
     const html = `
@@ -226,11 +228,92 @@ btnClose.addEventListener(`click`, function (event) {
   inputCloseUsername.value = inputClosePin.value = ``;
 });
 
+// Switched between T & F (sorts on each click)
+let sorted = false;
+
+btnSort.addEventListener(`click`, function (event) {
+  event.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
 
+// Auto filling arrays / Creating
+
+const arr = [1, 2, 3, 4, 5, 6];
+console.log(new Array(2, 3, 4, 5, 6, 7));
+
+const x = new Array(7);
+console.log(x);
+
+// console.log(x.map(() => 5));
+
+x.fill(1); // MUTATES
+x.fill(4, 3, 5); //Starts at [3]
+console.log(x);
+
+arr.fill(23, 2, 6);
+console.log(arr);
+
+// Array.from
+
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y);
+
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z);
+
+const rnd = Array.from(
+  { length: 100 },
+  () => Math.trunc(Math.random() * 100) + 1
+);
+
+labelBalance.addEventListener(`click`, function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll(`.movements__value`),
+    element => Number(element.textContent.replace(`€`, ``))
+  );
+  console.log(movementsUI);
+
+  const movementsUI2 = [...document.querySelectorAll(`.movements__value`)];
+  console.log(movementsUI2);
+});
+
+// console.log(rnd);
+
+// Math.trunc(Math.random() * 6) + 1;
+//        Sorting
+/*
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const owners = [`Jonas`, `Zach`, `Adam`, `Martha`];
+console.log(owners.sort()); //Mutates
+console.log(owners);
+
+console.log(movements);
+// console.log(movements.sort());
+
+// return < 0, A, B (keep  order)
+// return > 0, B, A (switch order)
+// Ascending
+// movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (a < b) return -1;
+// });
+
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+// descending
+movements.sort((a, b) => b - a);
+console.log(movements);
+*/
+
 //        flat & flatMap
+/*
 // flat removes nested arrays
 const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
 console.log(arr.flat());
@@ -264,6 +347,7 @@ const overAllBalance2 = accounts
   .flatMap(acc => acc.movements)
   .reduce((acc, cur) => acc + cur);
 console.log(overAllBalance2);
+*/
 
 //        Some and every
 /*

@@ -60,13 +60,81 @@ calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
 
 // Challange #3
 
-const calcAverageHumanAge = (ages) =>
-  ages
-    .map((age) => (age <= 2 ? age * 2 : 16 + age * 4))
-    .filter((age) => age >= 18)
-    .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
+// const calcAverageHumanAge = (ages) =>
+//   ages
+//     .map((age) => (age <= 2 ? age * 2 : 16 + age * 4))
+//     .filter((age) => age >= 18)
+//     .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
 
-const avg1 = calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
-const avg2 = calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
+// const avg1 = calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+// const avg2 = calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
 
-console.log(avg1, avg2);
+// console.log(avg1, avg2);
+
+// Challange #4
+
+const dogs = [
+  { weight: 22, curFood: 250, owners: ["Alice", "Bob"] },
+  { weight: 8, curFood: 200, owners: ["Matilda"] },
+  { weight: 13, curFood: 275, owners: ["Sarah", "John"] },
+  { weight: 32, curFood: 340, owners: ["Michael"] },
+];
+
+// Adding recommended food element to each
+dogs.forEach((dog) => (dog.recFood = Math.trunc(dog.weight ** 0.75 * 28)));
+console.log(dogs);
+
+// 2
+
+const dogSarah = dogs.find((dog) => dog.owners.includes(`Sarah`));
+console.log(dogSarah);
+console.log(
+  `Sarah dog is eating too ${
+    dogSarah.curFood > dogSarah.recFood ? `much` : `little`
+  }`
+);
+
+// 3
+
+const ownersEatTooMuch = dogs
+  .filter((dog) => dog.curFood > dog.recFood)
+  .flatMap((dog) => dog.owners);
+
+const ownersEatToolittle = dogs
+  .filter((dog) => dog.curFood < dog.recFood)
+  .flatMap((dog) => dog.owners);
+
+console.log(ownersEatTooMuch, ownersEatToolittle);
+
+// 4
+
+console.log(`${ownersEatTooMuch.join(` and `)}'s dogs eats too much!`);
+console.log(`${ownersEatToolittle.join(` and `)}'s dogs eats too little!`);
+
+// 5
+
+console.log(dogs.some((dog) => dog.curFood === dog.recFood));
+
+// 6
+
+console.log(
+  dogs.some(
+    (dog) => dog.curFood > dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1
+  )
+);
+
+// 7
+
+const dogsOkay = dogs
+  .filter(
+    (dog) => dog.curFood > dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1
+  )
+  .map((dog) => dog.owners);
+
+console.log(...dogsOkay);
+
+// 8
+
+const dogsCopy = dogs.slice().sort((a, b) => a.recFood - b.recFood);
+
+console.log(dogsCopy);
